@@ -2,5 +2,6 @@ import server from "../src/model/server.js";
 
 let app = new server();
 // em
-app.start;
+app.configureCors;
 app.products;
+app.start;
