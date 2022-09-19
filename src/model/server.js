@@ -16,7 +16,16 @@ class server {
     this.app.get("/api/products", cors(), (req, res) => {
       res.send(productList);
     });
+    this.app.get("/api/products/:id", cors(), async (req, res) => {
+      const id = await req.params;
+      if (productList.products) {
+        res.send(productList.products[Number(id.id)]);
+      } else {
+        res.status(404).send("No se encontro el producto");
+      }
+    });
   }
+
   get start() {
     this.app.get("/", (req, res) => {
       res.send("Servidor en perfecto estado test ");
