@@ -1,16 +1,18 @@
 import express from "express";
 import productList from "../template/data.js";
+import dotenv from "dotenv";
 import cors from "cors";
 class server {
   constructor() {
     this.app = express();
-    this.port = process.env.PORT || 4000;
+    this.dotenv = dotenv.config();
+    this.port = process.env.PORT;
     this.cors = cors();
   }
   get configureCors() {
     this.app.use(this.cors);
-    origin: "http://localhost:4000";
-    optionsSuccessStatus: 200;
+    origin: localhost: 4000;
+    http: optionsSuccessStatus: 200;
   }
   get products() {
     this.app.get("/api/products", cors(), (req, res) => {
