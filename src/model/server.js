@@ -1,9 +1,10 @@
 import express from "express";
-import productList from "../template/data.js";
+import data from "../template/data.js";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 import userRouter from "../../routers/userRouter.js";
+import productRouter from "../../routers/productRouter.js";
 class server {
   constructor() {
     this.app = express();
@@ -34,19 +35,11 @@ class server {
 
   get midleware() {
     this.app.use(express.json());
-    this.app.get("/api/products", cors(), (req, res) => {
-      res.send(productList.products);
-    });
-    this.app.get("/api/products/:id", cors(), async (req, res) => {
-      const id = await req.params;
-      if (productList.products) {
-        res.send(productList.products[Number(id.id)]);
-      } else {
-        res.status(404).send("No se encontro el producto");
-      }
-    });
-    this.app.use("/api/users", userRouter);
 
+    //mildware user
+    this.app.use("/api/users", userRouter);
+    //mildware products
+    this.app.use("/api/products", productRouter);
     this.app.use((err, req, res, next) => {
       res.status(500).send({ message: err.message });
     });
